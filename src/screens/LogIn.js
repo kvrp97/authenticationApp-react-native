@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const LogIn = () => {
+const LogIn = ({navigation}) => {
   return (
     <View>
-      <Text>LogIn</Text>
+      <Text onPress={()=> navigation.navigate('Register')} >LogIn</Text>
     </View>
   )
 }
 
-export default LogIn
-
 const styles = StyleSheet.create({})
+
+export default LogIn
