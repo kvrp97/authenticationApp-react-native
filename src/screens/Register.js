@@ -34,7 +34,7 @@ const Register = ({ navigation }) => {
     }
 
     if (!inputs.email) {
-      handleErrorMessage('Please input an email', 'email');
+      handleErrorMessage('Please enter an email', 'email');
       valid = false;
     } else if (!emailRegex.test(inputs.email)) {
       handleErrorMessage('Please enter a valid email', 'email');
