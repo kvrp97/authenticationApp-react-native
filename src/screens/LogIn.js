@@ -107,7 +107,7 @@ const LogIn = ({ navigation }) => {
             error={errors.password}
             onFocus={() => handleErrorMessage(null, 'password')}
           />
-          <Button title={'Register'} onPress={validate} />
+          <Button title={'LogIn'} onPress={validate} />
           <Text
             style={styles.noAccountText}
             onPress={() => navigation.navigate('Register')}
