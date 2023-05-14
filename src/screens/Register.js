@@ -1,7 +1,9 @@
-import { SafeAreaView, ScrollView, StyleSheet, Text, View, Keyboard } from 'react-native'
+import { SafeAreaView, ScrollView, StyleSheet, Text, View, Keyboard, Alert } from 'react-native'
 import React, { useState } from 'react'
 import InputText from '../components/InputText'
 import Button from '../components/Button'
+import Loader from '../components/Loader'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Register = ({ navigation }) => {
 
@@ -13,6 +15,7 @@ const Register = ({ navigation }) => {
   });
 
   const [errors, setErrors] = useState({});
+  const [Loading, setLoading] = useState(false);
 
   const handleInputs = (text, input) => {
     setInputs((previousInput) => ({
@@ -21,12 +24,16 @@ const Register = ({ navigation }) => {
     }))
   }
 
+  const handleErrorMessage = (errorMessage, input) => {
+    setErrors((previousValue) => ({
+      ...previousValue,
+      [input]: errorMessage
+    }));
+  }
+
   const validate = () => {
     Keyboard.dismiss();
     let valid = true;
-
-    const emailRegex = new RegExp("/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/");
-    const passwordRegex = new RegExp("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#&()])(?!.*\s).{8,}$/");
 
     if (!inputs.fullName) {
       handleErrorMessage('Please enter the name', 'fullName');
@@ -34,9 +41,9 @@ const Register = ({ navigation }) => {
     }
 
     if (!inputs.email) {
-      handleErrorMessage('Please enter an email', 'email');
+      handleErrorMessage('Please enter the email', 'email');
       valid = false;
-    } else if (!emailRegex.test(inputs.email)) {
+    } else if (!inputs.email.match(/^[a-z0-9.%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/)) {
       handleErrorMessage('Please enter a valid email', 'email');
       valid = false;
     }
@@ -49,25 +56,36 @@ const Register = ({ navigation }) => {
     if (!inputs.password) {
       handleErrorMessage('Please enter the password', 'password');
       valid = false;
-    } else if (inputs.password.length < 8 ) {
+    } else if (inputs.password.length < 8) {
       handleErrorMessage('Minimum password length is 8', 'password');
       valid = false;
-    } else if(!passwordRegex.test(inputs.password)) {
+    } else if (!inputs.password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#&()])(?!.*\s).{8,}$/)) {
       handleErrorMessage('Password must be contained upper/lower case, numbers, special characters', 'password');
       valid = false;
     }
 
+    if (valid) {
+      registerUser();
+    }
+
   }
 
-  const handleErrorMessage = (errorMessage, input) => {
-    setErrors((previousValue) => ({
-      ...previousValue,
-      [input]: errorMessage
-    }));
+  const registerUser = () => {
+    setLoading(true);
+    setTimeout(async () => {
+      setLoading(false);
+      try {
+        await AsyncStorage.setItem('user', JSON.stringify(inputs));
+        navigation.navigate('logIn');
+      } catch (error) {
+        Alert.alert('Error', 'Something went wrong')
+      }
+    }, 3000);
   }
 
   return (
     <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
+      <Loader visible={Loading} />
       <ScrollView contentContainerStyle={{ paddingTop: 30, paddingHorizontal: 20 }}>
         <Text style={styles.registerText}>Register</Text>
         <Text style={styles.subText}>Enter Your Details to Register</Text>

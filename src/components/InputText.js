@@ -16,6 +16,7 @@ const InputText = ({ label, iconName, error, password, onFocus = () => { }, ...p
           style={styles.textInputStyle}
           secureTextEntry={hidePassword}
           autoCorrect={false}
+          placeholderTextColor={'#aeb7bf'}
           onFocus={() => {
             onFocus();
             setIsFocused(true);
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     height: 55,
-    backgroundColor: 'lightgray',
+    backgroundColor: '#e8f4ff',
     flexDirection: 'row',
     paddingHorizontal: 15,
     borderWidth: 0.5,
