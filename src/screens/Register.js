@@ -81,7 +81,7 @@ const Register = ({ navigation }) => {
           email: '',
           phoneNumber: '',
           password: '',
-        });        
+        });
         navigation.navigate('LogIn');
       } catch (error) {
         Alert.alert('Error', 'Something went wrong')
@@ -139,7 +139,15 @@ const Register = ({ navigation }) => {
           <Button title={'Register'} onPress={validate} />
           <Text
             style={styles.haveAccountText}
-            onPress={() => navigation.navigate('LogIn')}
+            onPress={() => {
+              setInputs({
+                fullName: '',
+                email: '',
+                phoneNumber: '',
+                password: '',
+              });
+              navigation.navigate('LogIn');
+            }}
           >
             Already have an account? LogIn
           </Text>
