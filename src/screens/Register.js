@@ -76,6 +76,12 @@ const Register = ({ navigation }) => {
       setLoading(false);
       try {
         await AsyncStorage.setItem('user', JSON.stringify(inputs));
+        setInputs({
+          fullName: '',
+          email: '',
+          phoneNumber: '',
+          password: '',
+        });
         navigation.navigate('logIn');
       } catch (error) {
         Alert.alert('Error', 'Something went wrong')

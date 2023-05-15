@@ -59,6 +59,10 @@ const LogIn = ({ navigation }) => {
           if (inputs.email == userDataObject.email && inputs.password == userDataObject.password) {
             try {
               await AsyncStorage.setItem('user', JSON.stringify({ ...userDataObject, loggedIn: true }));
+              setInputs({
+                email: '',
+                password: ''
+              });
               navigation.navigate('Home');
             } catch (error) {
               console.log(error);
