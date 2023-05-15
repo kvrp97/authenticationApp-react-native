@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 const InputText = ({ label, iconName, error, password, onFocus = () => { }, ...props }) => {
 
   const [isFocused, setIsFocused] = useState(false);
-  const [hidePassword, setHidePassword] = useState(true);
+  const [hidePassword, setHidePassword] = useState(password);
 
   return (
     <View style={{ marginBottom: 20 }}>
@@ -28,7 +28,12 @@ const InputText = ({ label, iconName, error, password, onFocus = () => { }, ...p
         />
         {password && (
           <Icon
-            onPress={() => setHidePassword(!hidePassword)}
+            onPress={() => {
+              setHidePassword(!hidePassword)
+              setTimeout(()=>{
+                setHidePassword(hidePassword);
+              },1500)
+            }}
             name={hidePassword ? 'eye-off-outline' : 'eye-outline'}
             style={{ fontSize: 22, color: 'darkblue' }}
           />
