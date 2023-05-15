@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Button from '../components/Button';
 
 const Home = ({ navigation }) => {
-  const [userDetails, setUserDetails] = useState();
+  const [userDetails, setUserDetails] = useState({});
 
   useEffect(() => {
     getUserDetails();
