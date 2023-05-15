@@ -26,11 +26,16 @@ const Home = ({ navigation }) => {
     AsyncStorage.setItem('user', JSON.stringify({ ...userDetails, loggedIn: false }));
     navigation.navigate('LogIn');
   }
+  const deleteUser = () => {
+    AsyncStorage.clear();
+    navigation.navigate('Register');
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.welcomeText}>Welcome {userDetails?.fullName}</Text>
       <Button title={'LogOut'} onPress={logOut} />
+      <Button title={'Delete User'} onPress={deleteUser} style={styles.deleteButton}/>
     </SafeAreaView>
   )
 }
@@ -47,6 +52,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
     marginBottom: 10
+  },
+  deleteButton:{
+    marginTop: 10
   }
 })
 
