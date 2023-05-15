@@ -81,8 +81,8 @@ const Register = ({ navigation }) => {
           email: '',
           phoneNumber: '',
           password: '',
-        });
-        navigation.navigate('logIn');
+        });        
+        navigation.navigate('LogIn');
       } catch (error) {
         Alert.alert('Error', 'Something went wrong')
       }
