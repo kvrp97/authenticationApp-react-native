@@ -35,7 +35,7 @@ const Home = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <Text style={styles.welcomeText}>Welcome {userDetails?.fullName}</Text>
       <Button title={'LogOut'} onPress={logOut} />
-      <Button title={'Delete User'} onPress={deleteUser} style={styles.deleteButton}/>
+      <Button title={'Delete User'} onPress={deleteUser} style={styles.deleteButton} />
     </SafeAreaView>
   )
 }
@@ -53,8 +53,8 @@ const styles = StyleSheet.create({
     color: 'black',
     marginBottom: 10
   },
-  deleteButton:{
-    marginTop: 10
+  deleteButton: {
+    marginTop: 10    
   }
 })
 
